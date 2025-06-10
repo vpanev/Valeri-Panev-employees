@@ -6,11 +6,11 @@
 This application processes CSV files containing employee project assignments and identifies which employees worked together on projects for the longest duration. The system is built with:
 
 1. **Backend API**: .NET Core Web API that processes CSV files and calculates employee pair data
-- ASP.NET Core backend (.NET 9)
-- C# 13.0
+   - ASP.NET Core backend (.NET 9)
+   - C# 13.0
 2. **Frontend UI**: React TypeScript application that provides the user interface
-- React Typescript
-- TailwindCSS
+   - React Typescript
+   - TailwindCSS
 
 ## API Endpoints
 

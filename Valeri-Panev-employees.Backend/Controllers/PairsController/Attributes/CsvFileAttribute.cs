@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Valeri_Panev_employees.Backend.Controllers.PairsController.Attributes
 {
+	/// <summary>
+	/// An action filter attribute that validates if the provided file parameter is a valid CSV file.
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Method)]
 	public class CsvFileAttribute : ActionFilterAttribute
 	{
 		private readonly string _parameterName;
@@ -12,6 +16,10 @@ namespace Valeri_Panev_employees.Backend.Controllers.PairsController.Attributes
 			_parameterName = parameterName;
 		}
 
+		/// <summary>
+		/// Called before the action method is invoked to validate the file parameter.
+		/// </summary>
+		/// <param name="context">The context for the action execution.</param>
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
 			if (!context.ActionArguments.TryGetValue(_parameterName, out var value) || value is not IFormFile file)

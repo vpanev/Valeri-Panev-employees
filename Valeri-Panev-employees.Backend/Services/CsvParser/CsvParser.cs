@@ -15,6 +15,14 @@ namespace Valeri_Panev_employees.Backend.Services.CsvParser
 			_logger = logger;
 		}
 
+		/// <summary>
+		/// Asynchronously parses a CSV file into a list of employee data records.
+		/// </summary>
+		/// <param name="file">The CSV file containing employee project data.</param>
+		/// <returns>
+		/// A list of <see cref="EmployeeData"/> objects representing the parsed employee records.
+		/// </returns>
+		/// <exception cref="FormatException">Thrown when a date string has an unrecognized format.</exception>
 		public async Task<List<EmployeeData>> ParseAsync(IFormFile file)
 		{
 			_logger.LogInformation($"{nameof(CsvHelper.CsvParser)}: File with name ${file.Name} will be processed.");
@@ -59,6 +67,22 @@ namespace Valeri_Panev_employees.Backend.Services.CsvParser
 			return list;
 		}
 
+		/// <summary>
+		/// Parses a date string into a DateTime object using various supported formats.
+		/// </summary>
+		/// <param name="token">The date string to parse.</param>
+		/// <param name="shouldAssignNullDate">
+		/// Indicates whether "NULL" should be treated as today's date. 
+		/// When true, a value of "NULL" returns DateTime.Today.
+		/// </param>
+		/// <returns>A DateTime representing the parsed date.</returns>
+		/// <remarks>
+		/// Supports multiple date formats as defined in <see cref="Constants.DateFormats"/>.
+		/// For DateTo values, "NULL" is treated as the current date when shouldAssignNullDate is true.
+		/// </remarks>
+		/// <exception cref="FormatException">
+		/// Thrown when the date string doesn't match any of the supported formats.
+		/// </exception>
 		private static DateTime ParseDate(string token, bool shouldAssignNullDate = false)
 		{
 			if (shouldAssignNullDate && token.Equals("NULL", StringComparison.OrdinalIgnoreCase))
